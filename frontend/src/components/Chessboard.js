@@ -6,19 +6,25 @@ const ChessboardComponent = () => {
   const [game, setGame] = useState(new Chess());
 
   const onPieceDrop = (sourceSquare, targetSquare) => {
-    const tempGame = new Chess(game.fen());
-    const move = tempGame.move({
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: 'q', // Promote to queen for simplicity
-    });
+    try {
+      const tempGame = new Chess(game.fen());
+      const move = tempGame.move({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: 'q', // Promote to queen for simplicity
+      });
 
-    if (move === null) {
-      return false; // Invalid move, reset the piece without errors
+      if (move === null) {
+        console.warn(`Invalid move: { from: ${sourceSquare}, to: ${targetSquare} }`);
+        return false; // Reset the piece without any exceptions
+      }
+
+      setGame(tempGame);
+      return true; // Valid move
+    } catch (error) {
+      console.error("Error processing move:", error);
+      return false; // Ensure no uncaught exceptions disrupt gameplay
     }
-
-    setGame(tempGame);
-    return true; // Valid move
   };
 
   return (
