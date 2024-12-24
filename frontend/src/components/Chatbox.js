@@ -11,22 +11,29 @@ const ChatBox = ({ userId }) => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  };
+
   return (
-    <div style={{ marginLeft: '20px', border: '1px solid black', padding: '10px', width: '300px' }}>
-      <h3>Chat</h3>
-      <div style={{ height: '200px', overflowY: 'scroll', marginBottom: '10px' }}>
+    <div style={{ marginLeft: '40px', backgroundColor: '#2a2a2a', borderRadius: '12px', padding: '15px', width: '350px', color: '#f5f5f5', transform: 'scale(1.2)', boxShadow: '0 0 10px rgba(0,0,0,0.5)' }}>
+      <h3 style={{ marginBottom: '15px', fontSize: '1.5rem' }}>Chat</h3>
+      <div style={{ height: '250px', overflowY: 'scroll', marginBottom: '15px', backgroundColor: '#1e1e1e', padding: '15px', borderRadius: '8px', boxShadow: 'inset 0 0 5px rgba(0,0,0,0.3)' }}>
         {messages.map((message, index) => (
-          <div key={index}>{message}</div>
+          <div key={index} style={{ marginBottom: '8px' }}>{message}</div>
         ))}
       </div>
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyPress={handleKeyPress}
         placeholder="Type a message"
-        style={{ width: 'calc(100% - 50px)', padding: '5px' }}
+        style={{ width: 'calc(100% - 60px)', padding: '12px', border: '1px solid #555', borderRadius: '8px', backgroundColor: '#2a2a2a', color: '#fff' }}
       />
-      <button onClick={handleSend} style={{ marginLeft: '5px', padding: '5px' }}>
+      <button onClick={handleSend} style={{ marginLeft: '10px', padding: '12px', backgroundColor: '#4caf50', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
         Send
       </button>
     </div>

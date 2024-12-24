@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
 
-const ChessboardComponent = () => {
+const ChessboardComponent = ({ turn, setTurn }) => {
   const [game, setGame] = useState(new Chess());
 
   const onPieceDrop = (sourceSquare, targetSquare) => {
     try {
+      if ((turn === 'w' && game.turn() !== 'w') || (turn === 'b' && game.turn() !== 'b')) {
+        console.warn('Not your turn!');
+        return false;
+      }
+
       const tempGame = new Chess(game.fen());
       const move = tempGame.move({
         from: sourceSquare,
@@ -16,14 +21,15 @@ const ChessboardComponent = () => {
 
       if (move === null) {
         console.warn(`Invalid move: { from: ${sourceSquare}, to: ${targetSquare} }`);
-        return false; // Reset the piece without any exceptions
+        return false; // Invalid move, reset the piece without any exceptions
       }
 
       setGame(tempGame);
+      setTurn(tempGame.turn());
       return true; // Valid move
     } catch (error) {
-      console.error("Error processing move:", error);
-      return false; // Ensure no uncaught exceptions disrupt gameplay
+      console.error('An error occurred during the move:', error);
+      return false; // Ignore and reset for unexpected exceptions
     }
   };
 
