@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
-import '../global.css';
 
 const ChessboardComponent = ({ turn, setTurn }) => {
-  const game = new Chess();
+  const [game] = useState(new Chess());
 
   const onPieceDrop = (sourceSquare, targetSquare) => {
-    const move = game.move({
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: 'q', // Promote to queen for simplicity
-    });
+    try {
+      const move = game.move({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: 'q', // Promote to queen for simplicity
+      });
 
-    if (move === null) {
-      return false; // Invalid move
+      if (move === null) {
+        return false; // Invalid move
+      }
+
+      setTurn(turn === 'w' ? 'b' : 'w'); // Switch turn
+      return true; // Valid move
+    } catch {
+      return false; // Catch any unexpected errors
     }
-
-    setTurn(turn === 'w' ? 'b' : 'w'); // Switch turn
-    return true; // Valid move
   };
 
   return (

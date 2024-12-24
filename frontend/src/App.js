@@ -47,7 +47,7 @@ const App = () => {
 
   return (
     <div style={{ textAlign: 'center', backgroundColor: '#1e1e1e', minHeight: '100vh', color: '#f5f5f5', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ fontSize: '2.5rem' }}>Chess Game</h1>
+      <h1 style={{ fontSize: '2.5rem' , marginTop: 0, lineHeight: 3}}>Chess Game</h1>
       <button style={{ padding: '15px 30px', fontSize: '18px', marginRight: '15px', backgroundColor: '#4caf50', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }} onClick={createNewGame}>
         Create New Game
       </button>
