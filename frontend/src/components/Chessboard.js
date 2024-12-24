@@ -6,32 +6,29 @@ const ChessboardComponent = () => {
   const [game, setGame] = useState(new Chess());
 
   const onPieceDrop = (sourceSquare, targetSquare) => {
-    const tempGame = new Chess(game.fen()); // Create a temporary instance to test the move
-
-    // Attempt the move
+    const tempGame = new Chess(game.fen());
     const move = tempGame.move({
       from: sourceSquare,
       to: targetSquare,
-      promotion: 'q', // Promote to a queen for simplicity
+      promotion: 'q', // Promote to queen for simplicity
     });
 
     if (move === null) {
-      // Invalid move
-      console.error(`Invalid move: { from: ${sourceSquare}, to: ${targetSquare} }`);
-      return false;
+      return false; // Invalid move, reset the piece without errors
     }
 
-    // Update the game state with the valid move
     setGame(tempGame);
-    return true;
+    return true; // Valid move
   };
 
   return (
-    <Chessboard
-      position={game.fen()} // Pass the FEN string for the current board position
-      onPieceDrop={onPieceDrop}
-      boardWidth={500}
-    />
+    <div style={{ margin: '20px auto', width: '500px' }}>
+      <Chessboard
+        position={game.fen()}
+        onPieceDrop={onPieceDrop}
+        boardWidth={500}
+      />
+    </div>
   );
 };
 
