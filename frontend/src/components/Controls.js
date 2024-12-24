@@ -1,4 +1,5 @@
 import React from 'react';
+import '../global.css';
 
 const Controls = ({ onResign, onOfferDraw, drawOffered, onAcceptDraw, onDeclineDraw }) => {
   return (

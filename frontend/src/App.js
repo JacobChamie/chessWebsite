@@ -3,6 +3,7 @@ import ChessboardComponent from './components/Chessboard';
 import ChatBox from './components/ChatBox';
 import Timer from './components/Timer';
 import Controls from './components/Controls';
+import './global.css';
 
 const App = () => {
   const [gameId, setGameId] = useState(null);
@@ -45,8 +46,8 @@ const App = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '30px', backgroundColor: '#1e1e1e', minHeight: '100vh', color: '#f5f5f5', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ marginBottom: '20px', fontSize: '2.5rem' }}>Chess Game</h1>
+    <div style={{ textAlign: 'center', backgroundColor: '#1e1e1e', minHeight: '100vh', color: '#f5f5f5', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ fontSize: '2.5rem' }}>Chess Game</h1>
       <button style={{ padding: '15px 30px', fontSize: '18px', marginRight: '15px', backgroundColor: '#4caf50', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }} onClick={createNewGame}>
         Create New Game
       </button>
@@ -57,7 +58,7 @@ const App = () => {
         style={{ padding: '15px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '8px' }}
       />
       {gameId && !gameOver && (
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '40px', transform: 'scale(1.2)', gap: '20px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
           <div>
             <Timer
               timeControl={timeControl}
@@ -78,7 +79,7 @@ const App = () => {
           <ChatBox userId="User4" />
         </div>
       )}
-      {gameOver && <h2 style={{ marginTop: '30px', color: '#ff5722', fontSize: '2rem' }}>Game Over - {winner}</h2>}
+      {gameOver && <h2 style={{ color: '#ff5722', fontSize: '2rem' }}>Game Over - {winner}</h2>}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../global.css';
 
 const Timer = ({ timeControl, player, active, onTimeout, isActive }) => {
   const [timeLeft, setTimeLeft] = useState(timeControl);
@@ -23,14 +24,14 @@ const Timer = ({ timeControl, player, active, onTimeout, isActive }) => {
 
   return (
     <div style={{
-      margin: '15px',
-      padding: '20px',
+      margin: '20px',
+      padding: '25px',
       fontWeight: 'bold',
       color: '#f5f5f5',
       backgroundColor: isActive ? '#4caf50' : '#333',
       borderRadius: '12px',
       textAlign: 'center',
-      fontSize: '20px',
+      fontSize: '22px',
       transition: 'background-color 0.3s ease',
     }}>
       {player}: {Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
