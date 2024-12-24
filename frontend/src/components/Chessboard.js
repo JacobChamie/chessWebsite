@@ -1,35 +1,36 @@
 import React, { useState } from 'react';
-import Chessboard from 'chessboardjsx';
-import Chess from 'chess.js';
-import { io } from 'socket.io-client';
-
-const socket = io('http://localhost:4000');
+import { Chessboard } from 'react-chessboard';
+import { Chess } from 'chess.js';
 
 const ChessboardComponent = () => {
   const [game, setGame] = useState(new Chess());
 
-  const onDrop = ({ sourceSquare, targetSquare }) => {
-    const move = game.move({
+  const onPieceDrop = (sourceSquare, targetSquare) => {
+    const tempGame = new Chess(game.fen()); // Create a temporary instance to test the move
+
+    // Attempt the move
+    const move = tempGame.move({
       from: sourceSquare,
       to: targetSquare,
-      promotion: 'q',
+      promotion: 'q', // Promote to a queen for simplicity
     });
 
-    if (move) {
-      setGame(game);
-      socket.emit('move', { move });
+    if (move === null) {
+      // Invalid move
+      console.error(`Invalid move: { from: ${sourceSquare}, to: ${targetSquare} }`);
+      return false;
     }
-  };
 
-  socket.on('move', ({ move }) => {
-    game.move(move);
-    setGame(game);
-  });
+    // Update the game state with the valid move
+    setGame(tempGame);
+    return true;
+  };
 
   return (
     <Chessboard
-      position={game.fen()}
-      onDrop={onDrop}
+      position={game.fen()} // Pass the FEN string for the current board position
+      onPieceDrop={onPieceDrop}
+      boardWidth={500}
     />
   );
 };
