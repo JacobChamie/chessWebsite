@@ -13,17 +13,17 @@ const ChessboardComponent = ({ turn, setTurn }) => {
       const move = game.move({
         from: sourceSquare,
         to: targetSquare,
-        promotion: 'q', // Promote to queen for simplicity
+        promotion: 'q',
       });
 
       if (move === null) {
-        return false; // Invalid move
+        return false;
       }
 
-      setTurn(turn === 'w' ? 'b' : 'w'); // Switch turn
-      return true; // Valid move
+      setTurn(turn === 'w' ? 'b' : 'w'); 
+      return true;
     } catch {
-      return false; // Catch any unexpected errors
+      return false;
     }
   };
 
